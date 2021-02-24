@@ -1,27 +1,48 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import FormContainer from '../components/FormCotainer'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Button, Col, Form, Row } from 'react-bootstrap'
 import Message from '../components/Message'
 import Loading from '../components/Loading'
+import { Forgotpassword } from '../actions/userActions'
 
-const ForgotPasswordScreen = ({ location, history }) => {
+const ForgotPasswordScreen = ({ location }) => {
   // @Desc Component Level State
   const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [message, setMessage] = useState('')
+
+  const dispatch = useDispatch()
+
+  const userForgotPassword = useSelector((state) => state.userForgotPassword)
+  const { loading, error, success } = userForgotPassword
 
   // Redirect
   const redirect = location.search ? location.search.split('=')[1] : '/'
 
-  //  Submit Function
+  // UseEffect
+
+  //  SubmitHandler Function
   const submitHandler = (e) => {
     e.preventDefault()
+    // DISPATCH FORGOTPASSWORD
+    if (!email) {
+      setMessage(`Email Doesn't Exist`)
+    } else {
+      dispatch(Forgotpassword(email))
+    }
   }
   return (
     <FormContainer>
       <h2>Forgot Password?</h2>
-      <p>Enter the email address associated with your account.</p>
+      {/* <p>Enter the email address associated with your account.</p> */}
+      <p>A password reset link would be sent to your email.</p>
+      {message && <Message variant='danger'>{message}</Message>}
+      {error && <Message variant='danger'>{error}</Message>}
+      {success && (
+        <Message variant='success'>Reset Password Email Sent</Message>
+      )}
+      {loading && <Loading />}
       <Form onSubmit={submitHandler}>
         <Form.Group controlId='email'>
           <Form.Label>Email Address</Form.Label>

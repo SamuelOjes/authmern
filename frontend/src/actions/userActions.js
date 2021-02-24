@@ -13,6 +13,12 @@ import {
   USER_UPDATE_PROFILE_REQUEST,
   USER_UPDATE_PROFILE_SUCCESS,
   USER_UPDATE_PROFILE_FAIL,
+  USER_FORGOTPASSWORD_REQUEST,
+  USER_FORGOTPASSWORD_SUCCESS,
+  USER_FORGOTPASSWORD_FAIL,
+  USER_RESETPASSWORD_REQUEST,
+  USER_RESETPASSWORD_SUCCESS,
+  USER_RESETPASSWORD_FAIL,
 } from '../constants/authConstants'
 
 export const Signin = (email, password) => async (dispatch) => {
@@ -82,6 +88,72 @@ export const Signup = (email, username, password) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: USER_SIGNUP_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}
+
+export const Forgotpassword = (email) => async (dispatch) => {
+  try {
+    dispatch({
+      type: USER_FORGOTPASSWORD_REQUEST,
+    })
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+
+    const { data } = await axios.post(
+      '/api/v1/auth/forgotpassword',
+      { email },
+      config
+    )
+
+    dispatch({
+      type: USER_FORGOTPASSWORD_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: USER_FORGOTPASSWORD_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}
+
+export const Resetpassword = (password, resettoken) => async (dispatch) => {
+  try {
+    dispatch({
+      type: USER_RESETPASSWORD_REQUEST,
+    })
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+
+    const { data } = await axios.put(
+      `/api/v1/auth/resetpassword/${resettoken}`,
+      { password },
+      config
+    )
+
+    dispatch({
+      type: USER_RESETPASSWORD_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: USER_RESETPASSWORD_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

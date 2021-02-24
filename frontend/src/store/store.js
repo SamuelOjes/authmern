@@ -7,14 +7,18 @@ import {
   userSigninReducer,
   userSignupReducer,
   userDetailsReducer,
-  userUpdateProfileReducer
+  userUpdateProfileReducer,
+  userForgotPasswordReducer,
+  userResetPasswordReducer,
 } from '../reducers/userReducers'
 
 const reducer = combineReducers({
   userSignin: userSigninReducer,
   userSignup: userSignupReducer,
   userDetails: userDetailsReducer,
-  userUpdateProfile: userUpdateProfileReducer
+  userUpdateProfile: userUpdateProfileReducer,
+  userForgotPassword: userForgotPasswordReducer,
+  userResetPassword: userResetPasswordReducer,
 })
 
 // LocalStorage For Getting User Info

@@ -16,7 +16,7 @@ const Header = () => {
 
   const signOutHandler = () => {
     dispatch(Signout())
-    history.push('/')
+    history.push('/signin')
   }
 
   return (

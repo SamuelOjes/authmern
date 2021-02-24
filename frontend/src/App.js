@@ -8,6 +8,7 @@ import LoginScreen from './screens/LoginScreen'
 import RegisterScreen from './screens/RegisterScreen'
 import ProfileScreen from './screens/ProfileScreen'
 import ForgotPasswordScreen from './screens/ForgotPasswordScreen'
+import ResetPasswordScreen from './screens/ResetPasswordScreen'
 
 // Coomponents
 import Header from './components/Header/Header'
@@ -24,6 +25,10 @@ const App = () => {
           <Route path='/signin' component={LoginScreen} />
           <Route path='/signup' component={RegisterScreen} />
           <Route path='/forgotpassword' component={ForgotPasswordScreen} />
+          <Route
+            path='/resetpassword/:resettoken'
+            component={ResetPasswordScreen}
+          />
         </Container>
       </main>
       <Footer />
