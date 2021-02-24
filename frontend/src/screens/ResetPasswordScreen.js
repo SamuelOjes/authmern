@@ -1,49 +1,72 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+// import { useDispatch, useSelector } from 'react-redux'
 import { Button, Col, Form, Row } from 'react-bootstrap'
 import FormContainer from '../components/FormCotainer'
-import Loading from '../components/Loading'
+// import Loading from '../components/Loading'
 import Message from '../components/Message'
-import { Resetpassword } from '../actions/userActions'
+import axios from 'axios'
+// import { Resetpassword } from '../actions/userActions'
 
-const ResetPasswordScreen = ({ location, history }) => {
+const ResetPasswordScreen = ({ location, match }) => {
   // Component Level State
   const [password, setPassword] = useState('')
   const [passwordConfirm, setPasswordConfirm] = useState('')
-  const [message, setMessage] = useState('')
-
-  // Dispatch
-  const dispatch = useDispatch()
-  const userResetPassword = useSelector((state) => state.userResetPassword)
-  const { loading, error } = userResetPassword
+  const [error, setError] = useState('')
+  const [success, setSuccess] = useState('')
 
   //   Redirect
   const redirect = location.search ? location.search.split('=')[1] : '/'
 
-  //   useEffect
-  //   useEffect(() => {
-  //     if (userInfo) {
-  //       history.push(redirect)
-  //     }
-  //   }, [history, userInfo, redirect])
-
   // submitHandler
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault()
+
+    const config = {
+      header: {
+        'Content-Type': 'application/json',
+      },
+    }
+
     if (password !== passwordConfirm) {
-      setMessage('Passwords do not Match')
-    } else {
-      // Dispatch Reset Password
-      dispatch(Resetpassword(password))
+      setPassword('')
+      setPasswordConfirm('')
+      setTimeout(() => {
+        setError('')
+      }, 5000)
+      return setError("Passwords don't match")
+    }
+
+    try {
+      const { data } = await axios.put(
+        `/api/v1/auth/resetpassword/${match.params.resettoken}`,
+        {
+          password,
+        },
+        config
+      )
+
+      setSuccess('Password Reset Successful')
+    } catch (error) {
+      setError(error.response.data.error)
+      setTimeout(() => {
+        setError('')
+      }, 5000)
+      return setError('Password Reset Unsuccessful')
     }
   }
   return (
     <FormContainer>
       <h1>RESET PASSWORD</h1>
-      {message && <Message variant='danger'>{message}</Message>}
       {error && <Message variant='danger'>{error}</Message>}
-      {loading && <Loading />}
+      {success && (
+        <Message variant='success'>
+          {success}{' '}
+          <Link to={redirect ? `/signin?redirect=${redirect}` : '/signin'}>
+            Sign in
+          </Link>
+        </Message>
+      )}
       <Form onSubmit={submitHandler}>
         <Form.Group controlId='password'>
           <Form.Label>Password</Form.Label>

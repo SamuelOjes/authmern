@@ -11,11 +11,12 @@ const ForgotPasswordScreen = ({ location }) => {
   // @Desc Component Level State
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
+  const [success, setSuccess] = useState('')
 
   const dispatch = useDispatch()
 
   const userForgotPassword = useSelector((state) => state.userForgotPassword)
-  const { loading, error, success } = userForgotPassword
+  const { loading, error } = userForgotPassword
 
   // Redirect
   const redirect = location.search ? location.search.split('=')[1] : '/'
@@ -30,6 +31,7 @@ const ForgotPasswordScreen = ({ location }) => {
       setMessage(`Email Doesn't Exist`)
     } else {
       dispatch(Forgotpassword(email))
+      setSuccess('Reset Password Email Sent')
     }
   }
   return (
@@ -39,9 +41,7 @@ const ForgotPasswordScreen = ({ location }) => {
       <p>A password reset link would be sent to your email.</p>
       {message && <Message variant='danger'>{message}</Message>}
       {error && <Message variant='danger'>{error}</Message>}
-      {success && (
-        <Message variant='success'>Reset Password Email Sent</Message>
-      )}
+      {success && <Message variant='success'>{success}</Message>}
       {loading && <Loading />}
       <Form onSubmit={submitHandler}>
         <Form.Group controlId='email'>
