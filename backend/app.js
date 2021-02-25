@@ -1,8 +1,6 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import path from 'path'
-
-import { fileURLToPath } from 'url'
 import {
   notFound,
   errorHandler,
@@ -24,7 +22,6 @@ app.use(
 )
 
 // Set Static Folder Path
-const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.resolve()
 app.use(express.static(path.join(__dirname, 'public')))
 
