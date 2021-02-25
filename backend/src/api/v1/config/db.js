@@ -20,7 +20,7 @@ const connectDB = async () => {
     })
 
     console.log(
-      `MongoDB connected: ${conn.connection.host}`.brightYellow.underline.bold
+      `MongoDB connected: ${conn.connection.host}`
     )
   } catch (error) {
     console.error(`Error: ${error.message}`)
