@@ -12,7 +12,7 @@ const mongoURI = process.env.MONGO_URI
 // Mongoose Connection Setup
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(localDbURI, {
+    const conn = await mongoose.connect(mongoURI, {
       useNewUrlParser: true,
       useCreateIndex: true,
       useFindAndModify: false,

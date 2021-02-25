@@ -20,7 +20,9 @@ const App = () => {
       <Header />
       <main className='py-3'>
         <Container>
-          <Route path='/' component={HomeScreen} exact />
+          <Route path='/'>
+            <Redirect to='/signin' />
+          </Route>
           <Route path='/profile' component={ProfileScreen} />
           <Route path='/signin' component={LoginScreen} />
           <Route path='/signup' component={RegisterScreen} />
