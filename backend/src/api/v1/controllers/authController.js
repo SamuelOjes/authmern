@@ -100,7 +100,7 @@ const forgotPassword = asyncHandler(async (req, res, next) => {
     validateBeforeSave: false,
   })
 
-  const resetUrl = `http://auth-temp.herokuapp.com/${resetToken}`
+  const resetUrl = `http://auth-temp.herokuapp.com/resetpassword/${resetToken}`
 
   const message = `
   <h3>You have requested a password reset</h3>
