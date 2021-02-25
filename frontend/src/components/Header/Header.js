@@ -29,9 +29,6 @@ const Header = () => {
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
             <Nav className='ml-auto'>
-              <LinkContainer to='/about'>
-                <Nav.Link>ABOUT</Nav.Link>
-              </LinkContainer>
               {userInfo ? (
                 <NavDropdown title={userInfo.username} id='name'>
                   <LinkContainer to='/profile'>
