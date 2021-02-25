@@ -12,7 +12,7 @@ const ProfileScreen = ({ history }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [passwordConfirm, setPasswordConfirm] = useState('')
-  const [message, setMessage] = useState('')
+  const [message, setMessage] = useState(null)
 
   // Dispatch
   const dispatch = useDispatch()
