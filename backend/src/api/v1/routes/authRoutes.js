@@ -18,6 +18,6 @@ router
 router.post('/signup', signUpUser)
 router.route('/signin').post(signInUser)
 router.route('/forgotpassword').post(forgotPassword)
-router.route('/resetpassword/:resettoken').put(resetPassword)
+router.route('/resetpassword/:resetToken').put(resetPassword)
 
 export default router

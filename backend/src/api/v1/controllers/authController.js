@@ -131,10 +131,10 @@ const forgotPassword = asyncHandler(async (req, res, next) => {
   }
 })
 
-const resetPassword = async (req, res, next) => {
+const resetPassword = asyncHandler(async (req, res, next) => {
   const resetPasswordToken = crypto
     .createHash('sha256')
-    .update(req.params.resettoken)
+    .update(req.params.resetToken)
     .digest('hex')
 
   const user = await User.findOne({
@@ -156,7 +156,7 @@ const resetPassword = async (req, res, next) => {
 
   // Create User token from sendTokenResponse
   createSendToken(user, 200, res)
-}
+})
 
 const createSendToken = (user, statusCode, res) => {
   const token = generateToken(user._id)

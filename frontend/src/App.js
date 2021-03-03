@@ -28,7 +28,7 @@ const App = () => {
           <Route path='/signup' component={RegisterScreen} />
           <Route path='/forgotpassword' component={ForgotPasswordScreen} />
           <Route
-            path='/resetpassword/:resettoken'
+            path='/resetpassword/:resetToken'
             component={ResetPasswordScreen}
           />
         </Container>
