@@ -129,7 +129,7 @@ export const Forgotpassword = (email) => async (dispatch) => {
   }
 }
 
-export const Resetpassword = (password, resettoken) => async (dispatch) => {
+export const Resetpassword = (password, resetToken) => async (dispatch) => {
   try {
     dispatch({
       type: USER_RESETPASSWORD_REQUEST,
@@ -142,7 +142,7 @@ export const Resetpassword = (password, resettoken) => async (dispatch) => {
     }
 
     const { data } = await axios.put(
-      `/api/v1/auth/resetpassword/${resettoken}`,
+      `/api/v1/auth/resetpassword/${resetToken}`,
       { password },
       config
     )
