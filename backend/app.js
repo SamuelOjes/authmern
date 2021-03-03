@@ -1,6 +1,9 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import path from 'path'
+import bodyParser from 'body-parser'
+import cors from 'cors'
+
 import {
   notFound,
   errorHandler,
@@ -13,6 +16,22 @@ dotenv.config()
 
 // Initialise Express
 const app = express()
+
+// Using Cors
+app.use(cors())
+
+app.use(function (req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept'
+  )
+  next()
+})
+
+app.use(bodyParser.urlencoded({ extended: true }))
+
+app.use(bodyParser.json())
 
 // Initialise express to use JSON
 app.use(
