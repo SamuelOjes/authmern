@@ -46,7 +46,7 @@ const ResetPasswordScreen = ({ location, match }) => {
         config
       )
 
-      setSuccess('Password Reset Successful')
+      setSuccess(data.data)
     } catch (error) {
       setError(error.response.data.error)
       setTimeout(() => {
